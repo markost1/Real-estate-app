@@ -5,13 +5,15 @@ import Rent from './pages/Rent';
 import Blog from './pages/Blog';
 import Team from './pages/Team';
 import Contact from './pages/Contact';
+import Header from './components/Header';
 
 
 function App() {
   
   return (
     <BrowserRouter>
-      
+    
+      <Header />
       <Routes>
 
         <Route path='/' element={<Home />} />
