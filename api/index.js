@@ -1,8 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import 'dotenv/config';
+import propertiesRouter from './routes/properties.route.js'
 
 const app = express()
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(process.env.MONGO).then(()=>{
     console.log('Connected to MongoDB');
@@ -16,4 +20,6 @@ app.listen(3000,()=>{
     console.log('server je aktivan na portu 3000!');
     
 })
+
+app.use('/api/properties', propertiesRouter);
 

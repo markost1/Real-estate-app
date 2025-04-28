@@ -6,6 +6,7 @@ import Blog from './pages/Blog';
 import Team from './pages/Team';
 import Contact from './pages/Contact';
 import Header from './components/Header';
+import Create from './pages/Create';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path='/blog' element={<Blog />} />
         <Route path='/team' element={<Team />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/create' element={<Create />} />
 
       </Routes>
 

@@ -56,7 +56,7 @@ const propertySchema = new mongoose.Schema(
         },
         imageURLs:{
             type:Array,
-            required:true,
+            // required:true,
         }
 
     },{timestamps:true}
