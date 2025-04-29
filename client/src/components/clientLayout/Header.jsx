@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 
 export default function Header() {
   return (
+    <>
     <header>
         <div className='flex justify-between p-4'>
         <Link to='/'>
@@ -41,5 +42,7 @@ export default function Header() {
             </ul>
         </div>
     </header>
+    <Outlet />
+    </>
   )
 }
