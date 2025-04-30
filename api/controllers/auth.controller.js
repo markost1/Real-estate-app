@@ -49,3 +49,12 @@ export const signin = async(req,res)=>{
     }).json(rest)
 
 }
+
+export const signout = (req,res) => {
+    try {
+        res.clearCookie('access_token');
+        res.status(200).json('Korisnik je uspjesno odjavljen')
+    } catch (error) {
+        next(error)
+    }
+}
