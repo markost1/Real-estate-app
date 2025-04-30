@@ -7,7 +7,6 @@ import Team from './pages/publicPages/Team';
 import Contact from './pages/publicPages/Contact';
 import Header from './components/clientLayout/Header';
 import Create from './pages/AdminPages/Create';
-import SearchEngine from './components/SearchEngine';
 import AdminHeader from './components/adminLayout/AdminHeader';
 import AdminPage from './pages/AdminPages/AdminPage';
 import Dashboard from './pages/AdminPages/Dashboard';
@@ -30,11 +29,10 @@ function App() {
         <Route path='/contact' element={<Contact />} />
     </Route>   
        
-    <Route path='/admin' element={ <AdminHeader />}>
-        <Route  index element={<AdminPage />} />
-        <Route path='create' element={<Create />} />
-        <Route path='dashboard' element={<Dashboard />} />
-    </Route>
+    <Route path='/admin' element={ <AdminPage />} />
+    <Route path='create' element={ <Create />} />
+    <Route path='dashboard' element={ <Dashboard />} />
+    
 
       </Routes>
 
