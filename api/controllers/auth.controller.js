@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
+import jwt from 'jsonwebtoken';
 
 export const signup = async(req,res) => {
     
@@ -37,6 +38,14 @@ export const signin = async(req,res)=>{
 
     const {password:pass, ...rest} = validUser._doc
 
-    res.status(200).json(rest)
+    const token = jwt.sign({
+        id:validUser._id, isAdmin:validUser.isAdmin
+    },process.env.JSON_SECRET_KEY);
+
+
+
+    res.status(200).cookie('access_token',token,{
+        httpOnly:true
+    }).json(rest)
 
 }
