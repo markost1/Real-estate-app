@@ -27,20 +27,22 @@ export const signin = async(req,res)=>{
     const{email,password} = req.body;
 
     const validUser = await User.findOne({email});
-    if(!validUser){
-        res.status(404).json('Korisnik nije pronadjen')
+    if(!validUser || !validUser.isAdmin){
+        res.status(404).json({message:'Korisnik nije pronadjen'})
     }
 
     const validPassword = bcrypt.compareSync(password,validUser.password)
     if(!validPassword){
-        res.status(404).json('Lozinka nije ispravna')
+        res.status(404).json({message:'Lozinka nije ispravna'})
     }
 
     const {password:pass, ...rest} = validUser._doc
 
     const token = jwt.sign({
         id:validUser._id, isAdmin:validUser.isAdmin
-    },process.env.JSON_SECRET_KEY);
+    },process.env.JSON_SECRET_KEY,{
+        expiresIn:'1d',
+    });
 
 
 

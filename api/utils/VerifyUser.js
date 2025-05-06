@@ -1,21 +1,21 @@
 import jwt from 'jsonwebtoken';
 
-export const verifyToken = (req,res)=>{
+export const verifyToken = (req,res,next)=>{
     const token = req.cookies.access_token;
 
     if(!token){
-        console.log('ne postoji token');
+        return res.status(401).json({message:'Token nije pronadjen'})
         
     }
-
-    jwt.verify(token,process.env.JSON_SECRET_KEY,(err,user)=>{
-        if(err){
-            console.log('Neautorizovan');
-            
-        }
-
-        req.user = user
+try {
+    const decoded =  jwt.verify(token,process.env.JSON_SECRET_KEY)
+    if(!decoded.isAdmin){
+        return res.status(403).json({message:"Forbiden"})
+    }
+        req.user = decoded
         next();
-    })
+} catch (error) {
+    return res.status(403).json({message:'Neispravan token'})
+}    
 
 }
