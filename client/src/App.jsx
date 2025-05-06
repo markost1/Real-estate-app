@@ -9,7 +9,7 @@ import Header from './components/clientLayout/Header';
 import Create from './pages/AdminPages/Create';
 import AdminHeader from './components/adminLayout/AdminHeader';
 import AdminPage from './pages/AdminPages/AdminPage';
-import Dashboard from './pages/AdminPages/Dashboard';
+import AdminDashboard from './pages/AdminPages/AdminDashboard';
 
 function App() {
   
@@ -30,8 +30,8 @@ function App() {
     </Route>   
        
     <Route path='/admin' element={ <AdminPage />} />
-    <Route path='create' element={ <Create />} />
-    <Route path='dashboard' element={ <Dashboard />} />
+    <Route path='/create' element={ <Create />} />
+    <Route path='/admin/dashboard' element={ <AdminDashboard />} />
     
 
       </Routes>

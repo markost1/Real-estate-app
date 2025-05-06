@@ -1,16 +1,55 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function AdminPage() {
   
+  const [formData, setFormData] = useState({})
+  const navigate  = useNavigate()
     
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Login attempt:", email, password);
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    })
+
+    console.log(formData);
+    
+  }
+
+  const handleSubmit = async(e) => {
+    e.preventDefault(); 
+    
     // Ovde bi išao fetch poziv ka backendu
+    try {
+      const res = await fetch('/api/auth/signin',{
+        method:"POST",
+        headers:{
+          'Content-Type':'application/json',
+        },
+        body:JSON.stringify(formData),
+      })
+
+      const data = await res.json();
+      console.log(data);
+      
+
+      if (data.success && data.admin) {
+        // Ako je prijava uspešna, preusmjeri na Admin Dashboard
+        navigate('/admin/dashboard');
+      }else {
+        alert(data.message);
+        
+      }
+
+      
+    } catch (error) {
+      console.log('Problem sa prijavom korisnika', error);
+      
+    }
+   
   };
 
   return (
@@ -27,10 +66,10 @@ export default function AdminPage() {
             <input
               type="email"
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChange}
               className="w-full rounded-xl border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder="admin@example.com"
+              id='email'
             />
           </div>
 
@@ -41,10 +80,10 @@ export default function AdminPage() {
             <input
               type="password"
               required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
               className="w-full rounded-xl border border-gray-300 px-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder="••••••••"
+              id='password'
             />
           </div>
 

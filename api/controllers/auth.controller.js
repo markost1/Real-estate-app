@@ -28,12 +28,12 @@ export const signin = async(req,res)=>{
 
     const validUser = await User.findOne({email});
     if(!validUser || !validUser.isAdmin){
-        res.status(404).json({message:'Korisnik nije pronadjen'})
+        res.status(404).json({message:'Korisnik nije pronadjen', success:false})
     }
 
     const validPassword = bcrypt.compareSync(password,validUser.password)
     if(!validPassword){
-        res.status(404).json({message:'Lozinka nije ispravna'})
+        res.status(404).json({message:'Lozinka nije ispravna',success:false})
     }
 
     const {password:pass, ...rest} = validUser._doc
@@ -46,9 +46,13 @@ export const signin = async(req,res)=>{
 
 
 
-    res.status(200).cookie('access_token',token,{
-        httpOnly:true
-    }).json(rest)
+    return res.status(200)
+    .cookie('access_token', token, { httpOnly: true })
+    .json({
+      success: true,
+      admin: validUser.isAdmin, // ← dodaj ovo ako proveravaš na frontu
+      user: rest
+    });
 
 }
 
