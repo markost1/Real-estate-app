@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { loginSuccess } from '../../features/auth/authSlice'
 
 
 export default function AdminPage() {
   
   const [formData, setFormData] = useState({})
   const navigate  = useNavigate()
-    
+  const dispatch = useDispatch()
   
 
   const handleChange = (e) => {
@@ -34,10 +36,13 @@ export default function AdminPage() {
 
       const data = await res.json();
       console.log(data);
+      console.log(formData);
       
 
       if (data.success && data.admin) {
+        console.log('Uspešna prijava. Preusmeravam na dashboard');
         // Ako je prijava uspešna, preusmjeri na Admin Dashboard
+       dispatch(loginSuccess(data.token))
         navigate('/admin/dashboard');
       }else {
         alert(data.message);

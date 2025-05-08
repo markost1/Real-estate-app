@@ -7,11 +7,14 @@ import Team from './pages/publicPages/Team';
 import Contact from './pages/publicPages/Contact';
 import Header from './components/clientLayout/Header';
 import Create from './pages/AdminPages/Create';
-import AdminHeader from './components/adminLayout/AdminHeader';
+
 import AdminPage from './pages/AdminPages/AdminPage';
 import AdminDashboard from './pages/AdminPages/AdminDashboard';
 
+import PrivateRoute from './components/adminLayout/PrivateRoute';
+
 function App() {
+
   
   return (
     <BrowserRouter>
@@ -31,8 +34,10 @@ function App() {
        
     <Route path='/admin' element={ <AdminPage />} />
     <Route path='/create' element={ <Create />} />
-    <Route path='/admin/dashboard' element={ <AdminDashboard />} />
-    
+
+    <Route element={<PrivateRoute />}>
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        </Route>
 
       </Routes>
 

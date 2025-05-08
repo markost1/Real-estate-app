@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import propertiesRouter from './routes/properties.route.js'
 import authRouter from './routes/auth.route.js'
+import adminRoutes from './routes/admin.js';
 import 'dotenv/config';
 import cookieParser from 'cookie-parser';
 
@@ -28,4 +29,6 @@ app.listen(3000,()=>{
 
 app.use('/api/properties', propertiesRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/auth', adminRoutes);
+
 
